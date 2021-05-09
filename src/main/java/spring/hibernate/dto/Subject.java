@@ -19,6 +19,10 @@ public class Subject {
     )
     private Set<Student> enrolledStudents = new HashSet<>();
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    private Teacher teacher;
+
     private String name;
 
     public Long getId() {
@@ -37,6 +41,10 @@ public class Subject {
         this.name = name;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
     public Set<Student> getEnrolledStudents() {
         return enrolledStudents;
     }
@@ -44,4 +52,9 @@ public class Subject {
     public void enrollStudent(Student student) {
         enrolledStudents.add(student);
     }
+
+    public void assignTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
 }

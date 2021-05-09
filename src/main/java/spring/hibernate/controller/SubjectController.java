@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring.hibernate.dto.Student;
 import spring.hibernate.dto.Subject;
+import spring.hibernate.dto.Teacher;
 import spring.hibernate.service.StudentService;
 import spring.hibernate.service.SubjectService;
+import spring.hibernate.service.TeacherService;
 
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class SubjectController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     @GetMapping
     List<Subject> getSubjects(){
@@ -34,6 +39,14 @@ public class SubjectController {
         Subject subject = subjectService.getSubjectById(subjectId);
         Student student = studentService.getStudentById(studentId);
         subject.enrollStudent(student);
+        return subjectService.saveSubject(subject);
+    }
+
+    @PutMapping("/{subjectId}/teacher/{teacherId}")
+    Subject assignTeacherToSubject(@PathVariable Long subjectId, @PathVariable Long teacherId){
+        Subject subject = subjectService.getSubjectById(subjectId);
+        Teacher teacher = teacherService.getTeacherById(teacherId);
+        subject.assignTeacher(teacher);
         return subjectService.saveSubject(subject);
     }
 

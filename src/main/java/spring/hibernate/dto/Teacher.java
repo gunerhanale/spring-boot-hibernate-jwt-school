@@ -1,9 +1,10 @@
 package spring.hibernate.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Teacher {
@@ -11,6 +12,10 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "teacher")
+    private Set<Subject> subjects = new HashSet<>();
 
     private String name;
 
@@ -28,5 +33,9 @@ public class Teacher {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
     }
 }
