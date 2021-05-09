@@ -40,4 +40,8 @@ public class Subject {
     public Set<Student> getEnrolledStudents() {
         return enrolledStudents;
     }
+
+    public void enrollStudent(Student student) {
+        enrolledStudents.add(student);
+    }
 }
