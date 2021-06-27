@@ -20,7 +20,8 @@ public class TeacherController {
     }
 
     @PostMapping
-    void createTeacher(@RequestBody Teacher teacher){
+    String createTeacher(@RequestBody Teacher teacher){
         teacherService.saveTeacher(teacher);
+        return "Teacher is created successfully";
     }
 }
