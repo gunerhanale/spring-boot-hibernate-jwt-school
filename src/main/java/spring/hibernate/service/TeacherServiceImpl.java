@@ -25,8 +25,8 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public void deleteTeacher(Teacher teacher) {
-        teacherRepository.delete(teacher);
+    public void deleteTeacher(Long id) {
+        teacherRepository.deleteById(id);
     }
 
     @Override

@@ -13,11 +13,11 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @JsonIgnore
     @OneToMany(mappedBy = "teacher")
     private Set<Subject> subjects = new HashSet<>();
-
-    private String name;
 
     public Long getId() {
         return id;

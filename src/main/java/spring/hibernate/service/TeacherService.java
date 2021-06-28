@@ -7,6 +7,6 @@ import java.util.List;
 public interface TeacherService {
     List<Teacher> getAllTeachers();
     void saveTeacher(Teacher teacher);
-    void deleteTeacher(Teacher teacher);
+    void deleteTeacher(Long id);
     Teacher getTeacherById(Long id);
 }
