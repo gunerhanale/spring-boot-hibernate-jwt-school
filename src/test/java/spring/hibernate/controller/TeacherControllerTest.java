@@ -32,6 +32,19 @@ public class TeacherControllerTest extends AbstractTest {
     }
 
     @Test
+    public void getTeacher() throws Exception {
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(URI + "/10").
+                accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        Assert.assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        Teacher teacher = super.mapFromJson(content, Teacher.class);
+        Assert.assertEquals(teacher.getName(), "Mile");
+    }
+
+    @Test
     public void createTeacher() throws Exception {
 
         Teacher teacher = new Teacher();
@@ -45,7 +58,6 @@ public class TeacherControllerTest extends AbstractTest {
         Assert.assertEquals(201, status);
         String content = mvcResult.getResponse().getContentAsString();
         Assert.assertEquals(content, "Teacher is created successfully");
-
     }
 
     @Test
@@ -68,12 +80,11 @@ public class TeacherControllerTest extends AbstractTest {
     @Test
     public void removeTeacher() throws Exception {
 
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(URI + "/5")).andReturn();
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(URI + "/13")).andReturn();
         int status = mvcResult.getResponse().getStatus();
         Assert.assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         Assert.assertEquals(content, "Teacher is removed successfully");
     }
-
 
 }
