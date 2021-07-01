@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import org.springframework.stereotype.Service;
 import spring.hibernate.dto.User;
 import spring.hibernate.model.UserDTO;
 import spring.hibernate.repository.UserRepository;
 
 import java.util.ArrayList;
 
+@Service
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -23,12 +25,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if ("javainuse".equals(username)) {
-            return new org.springframework.security.core.userdetails.User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-                    new ArrayList<>());
-        } else {
+
+        User user = userDao.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                new ArrayList<>());
     }
 
     public User save(UserDTO user) {
